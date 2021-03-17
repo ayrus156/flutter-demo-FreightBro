@@ -33,6 +33,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  grouped_list: ^3.7.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
