@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<List<GroupModel>> futureGroup;
+  String appBarTitle = "0 groups created";
 
   @override
   void initState() {
@@ -27,20 +28,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.white,
-      appBar: new AppBar(
-          backgroundColor: Colors.transparent,
+      appBar:  AppBar(
+          backgroundColor: Colors.white,
           elevation: 0.0,
           title: Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: ListTile(
-              title: Text(
+              title: const Text(
                 "My Groups",
                 style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
                     fontSize: 25),
               ),
-              subtitle: Text("12 groups created",
+              subtitle: Text(appBarTitle,
                   style: TextStyle(color: Colors.black54)),
             ),
           )),
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> {
               future: futureGroup,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  appBarTitle = snapshot.data.length.toString() + ' groups created';
                   return CommonComp.homeGrid(snapshot, gridClicked);
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error);
@@ -95,15 +97,14 @@ class ParticipantsGroupView extends State<ParticipantListView> {
                 title: Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: ListTile(
-                    title: Text(
-                      "My Groups",
+                    title: Text(widget.groupModel.team.length.toString() + ' ' + 'Participants',
                       style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25),
+                          color: Colors.black,
+                          ),
                     ),
-                    subtitle: Text("12 groups created",
-                        style: TextStyle(color: Colors.black54)),
+                    subtitle: Text(widget.groupModel.team,
+                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,
+                            fontSize: 20)),
                   ),
                 )),
             body: GroupedListView<dynamic, String>(

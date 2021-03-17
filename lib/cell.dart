@@ -11,7 +11,6 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
