@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.white,
-      appBar:  AppBar(
+      appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.0,
           title: Padding(
@@ -41,8 +41,8 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 25),
               ),
-              subtitle: Text(appBarTitle,
-                  style: TextStyle(color: Colors.black54)),
+              subtitle:
+                  Text(appBarTitle, style: TextStyle(color: Colors.black54)),
             ),
           )),
       extendBodyBehindAppBar: true,
@@ -52,7 +52,8 @@ class _HomePageState extends State<HomePage> {
               future: futureGroup,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  appBarTitle = snapshot.data.length.toString() + ' groups created';
+                  appBarTitle =
+                      snapshot.data.length.toString() + ' groups created';
                   return CommonComp.homeGrid(snapshot, gridClicked);
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error);
@@ -95,15 +96,20 @@ class ParticipantsGroupView extends State<ParticipantListView> {
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
                 title: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 10.0,bottom: 10.0),
                   child: ListTile(
-                    title: Text(widget.groupModel.team.length.toString() + ' ' + 'Participants',
+                    title: Text(
+                      widget.groupModel.participants.length.toString() +
+                          ' ' +
+                          'Participants',
                       style: TextStyle(
-                          color: Colors.black,
-                          ),
+                        color: Colors.black,
+                      ),
                     ),
                     subtitle: Text(widget.groupModel.team,
-                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                             fontSize: 20)),
                   ),
                 )),
@@ -115,12 +121,25 @@ class ParticipantsGroupView extends State<ParticipantListView> {
                   item1.first_name.compareTo(item2.first_name),
               order: GroupedListOrder.DESC,
               groupSeparatorBuilder: (String value) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  value,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                padding: const EdgeInsets.only(left: 10.0),
+                child:
+                   Padding(
+                     padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+                     child: Text(
+                      value,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        background: Paint()
+                          ..color = Colors.yellow
+                          ..strokeWidth = 10
+                          ..style = PaintingStyle.stroke
+                          ..strokeJoin = StrokeJoin.round,
+                      ),
+                  ),
+                   ),
+
               ),
               itemBuilder: (c, element) {
                 return Card(
@@ -128,46 +147,36 @@ class ParticipantsGroupView extends State<ParticipantListView> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                  margin:
+                      new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                   child: Container(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15.0), //or 15.0
-                            child: Container(
-                              height: 45.0,
-                              width: 40.0,
-                              child: Image(
-                                image: NetworkImage(element.avatar),
-                                fit: BoxFit.fill,
-                              ),
+                      child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0), //or 15.0
+                          child: Container(
+                            height: 45.0,
+                            width: 40.0,
+                            child: Image(
+                              image: NetworkImage(element.avatar),
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
-                        
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(element.first_name + ' ' +element.last_name,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                        )
-                      ],
-
-
-                    )
-                    /*ListTile(
-                      contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      leading: ImageIcon(
-                          NetworkImage(element.avatar)
                       ),
-                      title: Text(element.first_name),
-                    )*/
-                  ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Text(
+                            element.first_name + ' ' + element.last_name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15)),
+                      )
+                    ],
+                  )),
                 );
               },
             )));
-
   }
 }
