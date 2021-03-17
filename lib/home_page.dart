@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.0,
@@ -52,6 +51,7 @@ class _HomePageState extends State<HomePage> {
               future: futureGroup,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+
                   appBarTitle =
                       snapshot.data.length.toString() + ' groups created';
                   return CommonComp.homeGrid(snapshot, gridClicked);
@@ -89,30 +89,33 @@ class ParticipantListView extends StatefulWidget {
 class ParticipantsGroupView extends State<ParticipantListView> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            appBar: AppBar(
-                backgroundColor: Colors.transparent,
+    return new Scaffold(
+            appBar: new AppBar(
+                backgroundColor: Colors.white,
                 elevation: 0.0,
-                title: Padding(
-                  padding: const EdgeInsets.only(top: 10.0,bottom: 10.0),
-                  child: ListTile(
-                    title: Text(
-                      widget.groupModel.participants.length.toString() +
-                          ' ' +
-                          'Participants',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                    subtitle: Text(widget.groupModel.team,
+                titleSpacing: 0.0,
+              automaticallyImplyLeading: false,
+                title:  Padding(
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 10.0,right: 10.0),
+                    child: ListTile(
+                      title: Text(
+                        widget.groupModel.participants.length.toString() +
+                            ' ' +
+                            'Participants',
                         style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20)),
-                  ),
-                )),
+                          color: Colors.black,
+                        ),
+                      ),
+                      subtitle: Text(widget.groupModel.team,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
+                    ),
+                 // ) ,
+                )
+
+               ),
             body: GroupedListView<dynamic, String>(
               elements: widget.groupModel.participants,
               groupBy: (element) => element.group,
@@ -121,62 +124,73 @@ class ParticipantsGroupView extends State<ParticipantListView> {
                   item1.first_name.compareTo(item2.first_name),
               order: GroupedListOrder.DESC,
               groupSeparatorBuilder: (String value) => Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child:
-                   Padding(
-                     padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
-                     child: Text(
-                      value,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        background: Paint()
-                          ..color = Colors.yellow
-                          ..strokeWidth = 10
-                          ..style = PaintingStyle.stroke
-                          ..strokeJoin = StrokeJoin.round,
-                      ),
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: Text(
+                    value,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      background: Paint()
+                        ..color = Colors.yellow
+                        ..strokeWidth = 10
+                        ..style = PaintingStyle.stroke
+                        ..strokeJoin = StrokeJoin.round,
+                    ),
                   ),
-                   ),
-
+                ),
               ),
               itemBuilder: (c, element) {
-                return Card(
-                  elevation: 8.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  margin:
-                      new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                  child: Container(
-                      child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0), //or 15.0
-                          child: Container(
-                            height: 45.0,
-                            width: 40.0,
-                            child: Image(
-                              image: NetworkImage(element.avatar),
-                              fit: BoxFit.fill,
+                return Dismissible(
+
+                    key: Key(element.id),
+                    onDismissed: (direction) {
+                      setState(() {
+                        widget.groupModel.participants
+                            .removeWhere((item) => item.id == element.id);
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(element.first_name + " deleted")));
+                    },
+                    child: Card(
+                      elevation: 8.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      margin: new EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 6.0),
+                      child: Container(
+                          child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(15.0), //or 15.0
+                              child: Container(
+                                height: 45.0,
+                                width: 40.0,
+                                child: Image(
+                                  image: NetworkImage(element.avatar),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Text(
-                            element.first_name + ' ' + element.last_name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15)),
-                      )
-                    ],
-                  )),
-                );
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Text(
+                                element.first_name + ' ' + element.last_name,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15)),
+                          )
+                        ],
+                      )),
+                    ));
               },
-            )));
+            ));
   }
 }

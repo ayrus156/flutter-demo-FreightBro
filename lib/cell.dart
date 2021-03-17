@@ -33,7 +33,7 @@ class Cell extends StatelessWidget {
                 groupModel.team,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
-              subtitle: Text('FIN, FR, PL'),
+              subtitle: Text('FIN, FR, PL'), //No matching fields in API response
             ),
             Container(
               child: Row(
