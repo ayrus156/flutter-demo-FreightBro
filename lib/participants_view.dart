@@ -84,7 +84,7 @@ class ParticipantsGroupView extends State<ParticipantListView> {
                       SnackBar(content: Text(element.first_name + " deleted")));
                 },
                 child: Card(
-                  elevation: 8.0,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
