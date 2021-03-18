@@ -22,7 +22,22 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _getData();
+  }
+
+
+  Future<void> _getData() async{
     futureGroup = Services.fetchGroups();
+
+    futureGroup.then((result) {
+
+      setState(() {
+        appBarTitle =result.length.toString() + '  groups created';
+      });
+
+    });
+
+
   }
 
   @override
@@ -67,8 +82,6 @@ class _HomePageState extends State<HomePage> {
               future: futureGroup,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  appBarTitle =
-                      snapshot.data.length.toString() + ' groups created';
                   return CommonComp.homeGrid(snapshot, gridClicked);
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error);
