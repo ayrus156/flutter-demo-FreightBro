@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:freight_bro_demo/constants.dart';
 import 'package:freight_bro_demo/participant_model.dart';
 import 'package:freight_bro_demo/participants_view.dart';
 import 'api_services.dart';
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(top: 10.0),
             child: ListTile(
               title: const Text(
-                "My Groups",
+                MESSAGES.HOME_PAGE_TITLE,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

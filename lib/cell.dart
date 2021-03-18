@@ -43,7 +43,7 @@ class Cell extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(top: 10.0,left: 10.0),
                 child: Text(groupModel.participants.length.toString() +
                     ' participants'),
               ),
@@ -64,7 +64,7 @@ class Cell extends StatelessWidget {
 
     for (var i = 0; i < 3 && i < strings.length; i++) {
       list.add(Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 8.0),
+        padding: const EdgeInsets.only(left: 10.0, right: 5.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15.0), //or 15.0
           child: Container(
@@ -76,7 +76,8 @@ class Cell extends StatelessWidget {
             ),
           ),
         ),
-      ));
+      )
+      );
     }
     return list;
   }

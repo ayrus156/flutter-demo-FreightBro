@@ -9,5 +9,6 @@ class MESSAGES {
   static const String INTERNET_ERROR = "No Internet Connection";
   static const String INTERNET_ERROR_RETRY =
       "No Internet Connection.\nPlease Retry";
+  static const String HOME_PAGE_TITLE = "My Groups";
 }
 
