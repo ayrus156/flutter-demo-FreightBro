@@ -6,7 +6,9 @@ import 'package:freight_bro_demo/participant_model.dart';
 import 'package:collection/collection.dart';
 import 'constants.dart';
 
+///API service class
 class Services {
+  /// Fetching data from internet
   static Future<List<GroupModel>> fetchGroups() async {
     final response = await http.get(APPURLS.SAMPLE_URL);
     print('Response status: ${response.statusCode}');
@@ -24,6 +26,7 @@ class Services {
     }
   }
 
+  ///Parsing the data into desired group model
   static List<GroupModel> parseGroupData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     List<ParticipantModel> result = parsed.map<ParticipantModel>((json) => ParticipantModel.fromJson(json)).toList();

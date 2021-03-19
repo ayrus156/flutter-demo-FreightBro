@@ -1,3 +1,5 @@
+
+/// Participant model class
 class ParticipantModel {
   String id;
   String first_name;
