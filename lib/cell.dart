@@ -12,9 +12,8 @@ class Cell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-      child: Card(
+    return  Card(
+      margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -55,7 +54,6 @@ class Cell extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-      ),
     );
   }
 
@@ -70,10 +68,7 @@ class Cell extends StatelessWidget {
           child: Container(
             height: 45.0,
             width: 40.0,
-            child: Image(
-              image: NetworkImage(strings[i].avatar),
-              fit: BoxFit.fill,
-            ),
+            child: Image.network(strings[i].avatar),
           ),
         ),
       )
