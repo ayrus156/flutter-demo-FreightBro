@@ -28,7 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   /// Getting API response
   Future<void> _getData() async {
-    futureGroup = Services.fetchGroups();
+
+    futureGroup = Services().fetchGroups();
     futureGroup.then((result) {
       ///Updating the appbar title with the API response inside setState function
       setState(() {

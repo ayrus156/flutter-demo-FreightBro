@@ -9,14 +9,13 @@ import 'constants.dart';
 ///API service class
 class Services {
   /// Fetching data from internet
-  static Future<List<GroupModel>> fetchGroups() async {
+   Future<List<GroupModel>> fetchGroups() async {
     final response = await http.get(APPURLS.SAMPLE_URL);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     try {
       if (response.statusCode == 200) {
-        List<GroupModel> list = parseGroupData(response.body);
-        return list;
+        return parseGroupData(response.body);
       } else {
         throw Exception(MESSAGES.INTERNET_ERROR);
       }
@@ -27,15 +26,15 @@ class Services {
   }
 
   ///Parsing the data into desired group model
-  static List<GroupModel> parseGroupData(String responseBody) {
+   List<GroupModel> parseGroupData(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     List<ParticipantModel> result = parsed.map<ParticipantModel>((json) => ParticipantModel.fromJson(json)).toList();
 
     var newMap = groupBy(result, (obj) => obj.team);
-    List<GroupModel> groups = new List<GroupModel>();
-    for(var v in newMap.values) {
+    List<GroupModel> groups = [];
+    for(var v in newMap.values) {    //[[{participant},{participant},{participant}],[{participant},{participant}]]
       GroupModel gm = GroupModel();
-      gm.participants = v;
+      gm.participants = v; //[{participant},{participant},{participant}]
       gm.team = v[0].team;
       groups.add(gm);
     }
